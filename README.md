@@ -19,17 +19,17 @@ dockermgr update aria2
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/aria2/rootfs"
+mkdir -p "$HOME/.local/share/srv/docker/aria2/volumes"
 git clone "https://github.com/dockermgr/aria2" "$HOME/.local/share/CasjaysDev/dockermgr/aria2"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/aria2/rootfs/." "$HOME/.local/share/srv/docker/aria2/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/aria2/volumes/." "$HOME/.local/share/srv/docker/aria2/volumes/"
 docker run -d \
 --restart always \
 --privileged \
 --name casjaysdevdocker-aria2 \
 --hostname aria2 \
 -e TZ=${TIMEZONE:-America/New_York} \
--v $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/rootfs/data:/data:z \
--v $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/rootfs/config:/config:z \
+-v $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/volumes/data:/data:z \
+-v $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/volumes/config:/config:z \
 -p 19001:80 \
 casjaysdevdocker/aria2:latest
 ```
@@ -46,8 +46,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=aria2
     volumes:
-      - $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/rootfs/data:/data:z
-      - $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/rootfs/config:/config:z
+      - $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/volumes/data:/data:z
+      - $HOME/.local/share/srv/docker/casjaysdevdocker-aria2/volumes/config:/config:z
     ports:
       - 19001:80
     restart: always
